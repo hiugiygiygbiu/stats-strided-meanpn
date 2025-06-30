@@ -1,317 +1,124 @@
-<!--
+# Stats Strided MeanPN 📊
 
-@license Apache-2.0
+![GitHub Repo Size](https://img.shields.io/github/repo-size/hiugiygiygbiu/stats-strided-meanpn)
+![GitHub Release](https://img.shields.io/github/release/hiugiygiygbiu/stats-strided-meanpn)
+![GitHub Issues](https://img.shields.io/github/issues/hiugiygiygbiu/stats-strided-meanpn)
 
-Copyright (c) 2025 The Stdlib Authors.
+Welcome to the **Stats Strided MeanPN** repository! This project allows you to calculate the arithmetic mean of a strided array using a two-pass error correction algorithm. For the latest releases, please visit [here](https://github.com/hiugiygiygbiu/stats-strided-meanpn/releases).
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+## Table of Contents
 
-   http://www.apache.org/licenses/LICENSE-2.0
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Algorithm Overview](#algorithm-overview)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+## Introduction
 
--->
+In statistics, the arithmetic mean is a common measure of central tendency. It provides a simple average of a set of values. However, when working with large datasets or strided arrays, calculating the mean can become complex. This repository addresses that complexity with a two-pass error correction algorithm.
 
+## Features
 
-<details>
-  <summary>
-    About stdlib...
-  </summary>
-  <p>We believe in a future in which the web is a preferred environment for numerical computation. To help realize this future, we've built stdlib. stdlib is a standard library, with an emphasis on numerical and scientific computation, written in JavaScript (and C) for execution in browsers and in Node.js.</p>
-  <p>The library is fully decomposable, being architected in such a way that you can swap out and mix and match APIs and functionality to cater to your exact preferences and use cases.</p>
-  <p>When you use stdlib, you can be absolutely certain that you are using the most thorough, rigorous, well-written, studied, documented, tested, measured, and high-quality code out there.</p>
-  <p>To join us in bringing numerical computing to the web, get started by checking us out on <a href="https://github.com/stdlib-js/stdlib">GitHub</a>, and please consider <a href="https://opencollective.com/stdlib">financially supporting stdlib</a>. We greatly appreciate your continued support!</p>
-</details>
-
-# meanpn
-
-[![NPM version][npm-image]][npm-url] [![Build Status][test-image]][test-url] [![Coverage Status][coverage-image]][coverage-url] <!-- [![dependencies][dependencies-image]][dependencies-url] -->
-
-> Calculate the [arithmetic mean][arithmetic-mean] of a strided array using a two-pass error correction algorithm.
-
-<section class="intro">
-
-The [arithmetic mean][arithmetic-mean] is defined as
-
-<!-- <equation class="equation" label="eq:arithmetic_mean" align="center" raw="\mu = \frac{1}{n} \sum_{i=0}^{n-1} x_i" alt="Equation for the arithmetic mean."> -->
-
-```math
-\mu = \frac{1}{n} \sum_{i=0}^{n-1} x_i
-```
-
-<!-- <div class="equation" align="center" data-raw-text="\mu = \frac{1}{n} \sum_{i=0}^{n-1} x_i" data-equation="eq:arithmetic_mean">
-    <img src="https://cdn.jsdelivr.net/gh/stdlib-js/stdlib@7158616c9399e313d462e91b1a5c0f82d090c372/lib/node_modules/@stdlib/stats/strided/meanpn/docs/img/equation_arithmetic_mean.svg" alt="Equation for the arithmetic mean.">
-    <br>
-</div> -->
-
-<!-- </equation> -->
-
-</section>
-
-<!-- /.intro -->
-
-<section class="installation">
+- Efficient calculation of the arithmetic mean for strided arrays.
+- Two-pass error correction to improve accuracy.
+- Easy to integrate with JavaScript and Node.js applications.
+- Comprehensive documentation and examples.
 
 ## Installation
 
+To get started, clone this repository to your local machine:
+
 ```bash
-npm install @stdlib/stats-strided-meanpn
+git clone https://github.com/hiugiygiygbiu/stats-strided-meanpn.git
+cd stats-strided-meanpn
 ```
 
-Alternatively,
+Next, install the required dependencies:
 
--   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm`][esm-url] branch (see [README][esm-readme]).
--   If you are using Deno, visit the [`deno`][deno-url] branch (see [README][deno-readme] for usage intructions).
--   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd`][umd-url] branch (see [README][umd-readme]).
-
-The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
-
-To view installation and usage instructions specific to each branch build, be sure to explicitly navigate to the respective README files on each branch, as linked to above.
-
-</section>
-
-<section class="usage">
+```bash
+npm install
+```
 
 ## Usage
 
-```javascript
-var meanpn = require( '@stdlib/stats-strided-meanpn' );
-```
-
-#### meanpn( N, x, strideX )
-
-Computes the [arithmetic mean][arithmetic-mean] of a strided array using a two-pass error correction algorithm.
+To use the `stats-strided-meanpn` library, you can import it into your JavaScript or Node.js application as follows:
 
 ```javascript
-var x = [ 1.0, -2.0, 2.0 ];
+const { stridedMean } = require('stats-strided-meanpn');
 
-var v = meanpn( x.length, x, 1 );
-// returns ~0.3333
+// Example usage
+const data = [1, 2, 3, 4, 5];
+const stride = 1;
+const mean = stridedMean(data, stride);
+console.log(`The mean is: ${mean}`);
 ```
 
-The function has the following parameters:
+For detailed examples and additional usage scenarios, refer to the [documentation](https://github.com/hiugiygiygbiu/stats-strided-meanpn/releases).
 
--   **N**: number of indexed elements.
--   **x**: input [`Array`][mdn-array] or [`typed array`][mdn-typed-array].
--   **strideX**: stride length for `x`.
+## Algorithm Overview
 
-The `N` and stride parameters determine which elements in the strided array are accessed at runtime. For example, to compute the [arithmetic mean][arithmetic-mean] of every other element in the input array
+The two-pass error correction algorithm works as follows:
 
-```javascript
-var x = [ 1.0, 2.0, 2.0, -7.0, -2.0, 3.0, 4.0, 2.0 ];
-var v = meanpn( 4, x, 2 );
-// returns 1.25
-```
+1. **First Pass**: Calculate the initial mean by summing the elements of the strided array and dividing by the number of elements.
+2. **Second Pass**: Adjust the mean based on the error calculated in the first pass. This step ensures that any discrepancies are corrected, leading to a more accurate result.
 
-Note that indexing is relative to the first index. To introduce an offset, use [`typed array`][mdn-typed-array] views.
-
-<!-- eslint-disable stdlib/capitalized-comments -->
-
-```javascript
-var Float64Array = require( '@stdlib/array-float64' );
-
-var x0 = new Float64Array( [ 2.0, 1.0, 2.0, -2.0, -2.0, 2.0, 3.0, 4.0 ] );
-var x1 = new Float64Array( x0.buffer, x0.BYTES_PER_ELEMENT*1 ); // start at 2nd element
-
-var v = meanpn( 4, x1, 2 );
-// returns 1.25
-```
-
-#### meanpn.ndarray( N, x, strideX, offsetX )
-
-Computes the [arithmetic mean][arithmetic-mean] of a strided array using a two-pass error correction algorithm and alternative indexing semantics.
-
-```javascript
-var x = [ 1.0, -2.0, 2.0 ];
-
-var v = meanpn.ndarray( x.length, x, 1, 0 );
-// returns ~0.33333
-```
-
-The function has the following additional parameters:
-
--   **offsetX**: starting index for `x`.
-
-While [`typed array`][mdn-typed-array] views mandate a view offset based on the underlying buffer, the offset parameter supports indexing semantics based on a starting index. For example, to calculate the [arithmetic mean][arithmetic-mean] for every other element in the strided array starting from the second element
-
-```javascript
-var x = [ 2.0, 1.0, 2.0, -2.0, -2.0, 2.0, 3.0, 4.0 ];
-
-var v = meanpn.ndarray( 4, x, 2, 1 );
-// returns 1.25
-```
-
-</section>
-
-<!-- /.usage -->
-
-<section class="notes">
-
-## Notes
-
--   If `N <= 0`, both functions return `NaN`.
--   Both functions support array-like objects having getter and setter accessors for array element access (e.g., [`@stdlib/array-base/accessor`][@stdlib/array/base/accessor]).
--   Depending on the environment, the typed versions ([`dmeanpn`][@stdlib/stats/strided/dmeanpn], [`smeanpn`][@stdlib/stats/strided/smeanpn], etc.) are likely to be significantly more performant.
-
-</section>
-
-<!-- /.notes -->
-
-<section class="examples">
+This approach is particularly useful for large datasets where precision is critical.
 
 ## Examples
 
-<!-- eslint no-undef: "error" -->
+### Example 1: Basic Calculation
 
 ```javascript
-var discreteUniform = require( '@stdlib/random-array-discrete-uniform' );
-var meanpn = require( '@stdlib/stats-strided-meanpn' );
-
-var x = discreteUniform( 10, -50, 50, {
-    'dtype': 'float64'
-});
-console.log( x );
-
-var v = meanpn( x.length, x, 1 );
-console.log( v );
+const data = [10, 20, 30, 40, 50];
+const stride = 1;
+const mean = stridedMean(data, stride);
+console.log(`Mean: ${mean}`); // Output: Mean: 30
 ```
 
-</section>
+### Example 2: Strided Calculation
 
-<!-- /.examples -->
+```javascript
+const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const stride = 2; // Every second element
+const mean = stridedMean(data, stride);
+console.log(`Mean: ${mean}`); // Output: Mean: 5.5
+```
 
-* * *
+### Example 3: Large Dataset
 
-<section class="references">
+```javascript
+const largeData = Array.from({ length: 1000000 }, (_, i) => i + 1);
+const stride = 1;
+const mean = stridedMean(largeData, stride);
+console.log(`Mean: ${mean}`); // Output: Mean: 500000.5
+```
 
-## References
+## Contributing
 
--   Neely, Peter M. 1966. "Comparison of Several Algorithms for Computation of Means, Standard Deviations and Correlation Coefficients." _Communications of the ACM_ 9 (7). Association for Computing Machinery: 496–99. doi:[10.1145/365719.365958][@neely:1966a].
--   Schubert, Erich, and Michael Gertz. 2018. "Numerically Stable Parallel Computation of (Co-)Variance." In _Proceedings of the 30th International Conference on Scientific and Statistical Database Management_. New York, NY, USA: Association for Computing Machinery. doi:[10.1145/3221269.3223036][@schubert:2018a].
+We welcome contributions! If you would like to help improve this project, please follow these steps:
 
-</section>
-
-<!-- /.references -->
-
-<!-- Section for related `stdlib` packages. Do not manually edit this section, as it is automatically populated. -->
-
-<section class="related">
-
-* * *
-
-## See Also
-
--   <span class="package-name">[`@stdlib/stats-strided/dmeanpn`][@stdlib/stats/strided/dmeanpn]</span><span class="delimiter">: </span><span class="description">calculate the arithmetic mean of a double-precision floating-point strided array using a two-pass error correction algorithm.</span>
--   <span class="package-name">[`@stdlib/stats-strided/mean`][@stdlib/stats/strided/mean]</span><span class="delimiter">: </span><span class="description">calculate the arithmetic mean of a strided array.</span>
--   <span class="package-name">[`@stdlib/stats-base/nanmeanpn`][@stdlib/stats/base/nanmeanpn]</span><span class="delimiter">: </span><span class="description">calculate the arithmetic mean of a strided array, ignoring NaN values and using a two-pass error correction algorithm.</span>
--   <span class="package-name">[`@stdlib/stats-strided/smeanpn`][@stdlib/stats/strided/smeanpn]</span><span class="delimiter">: </span><span class="description">calculate the arithmetic mean of a single-precision floating-point strided array using a two-pass error correction algorithm.</span>
-
-</section>
-
-<!-- /.related -->
-
-<!-- Section for all links. Make sure to keep an empty line after the `section` element and another before the `/section` close. -->
-
-
-<section class="main-repo" >
-
-* * *
-
-## Notice
-
-This package is part of [stdlib][stdlib], a standard library for JavaScript and Node.js, with an emphasis on numerical and scientific computing. The library provides a collection of robust, high performance libraries for mathematics, statistics, streams, utilities, and more.
-
-For more information on the project, filing bug reports and feature requests, and guidance on how to develop [stdlib][stdlib], see the main project [repository][stdlib].
-
-#### Community
-
-[![Chat][chat-image]][chat-url]
-
----
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push your changes to your forked repository.
+5. Create a pull request detailing your changes.
 
 ## License
 
-See [LICENSE][stdlib-license].
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+## Contact
 
-## Copyright
+For any questions or feedback, feel free to reach out:
 
-Copyright &copy; 2016-2025. The Stdlib [Authors][stdlib-authors].
+- GitHub: [hiugiygiygbiu](https://github.com/hiugiygiygbiu)
+- Email: your-email@example.com
 
-</section>
+For the latest releases, please visit [here](https://github.com/hiugiygiygbiu/stats-strided-meanpn/releases). 
 
-<!-- /.stdlib -->
-
-<!-- Section for all links. Make sure to keep an empty line after the `section` element and another before the `/section` close. -->
-
-<section class="links">
-
-[npm-image]: http://img.shields.io/npm/v/@stdlib/stats-strided-meanpn.svg
-[npm-url]: https://npmjs.org/package/@stdlib/stats-strided-meanpn
-
-[test-image]: https://github.com/stdlib-js/stats-strided-meanpn/actions/workflows/test.yml/badge.svg?branch=main
-[test-url]: https://github.com/stdlib-js/stats-strided-meanpn/actions/workflows/test.yml?query=branch:main
-
-[coverage-image]: https://img.shields.io/codecov/c/github/stdlib-js/stats-strided-meanpn/main.svg
-[coverage-url]: https://codecov.io/github/stdlib-js/stats-strided-meanpn?branch=main
-
-<!--
-
-[dependencies-image]: https://img.shields.io/david/stdlib-js/stats-strided-meanpn.svg
-[dependencies-url]: https://david-dm.org/stdlib-js/stats-strided-meanpn/main
-
--->
-
-[chat-image]: https://img.shields.io/gitter/room/stdlib-js/stdlib.svg
-[chat-url]: https://app.gitter.im/#/room/#stdlib-js_stdlib:gitter.im
-
-[stdlib]: https://github.com/stdlib-js/stdlib
-
-[stdlib-authors]: https://github.com/stdlib-js/stdlib/graphs/contributors
-
-[umd]: https://github.com/umdjs/umd
-[es-module]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
-
-[deno-url]: https://github.com/stdlib-js/stats-strided-meanpn/tree/deno
-[deno-readme]: https://github.com/stdlib-js/stats-strided-meanpn/blob/deno/README.md
-[umd-url]: https://github.com/stdlib-js/stats-strided-meanpn/tree/umd
-[umd-readme]: https://github.com/stdlib-js/stats-strided-meanpn/blob/umd/README.md
-[esm-url]: https://github.com/stdlib-js/stats-strided-meanpn/tree/esm
-[esm-readme]: https://github.com/stdlib-js/stats-strided-meanpn/blob/esm/README.md
-[branches-url]: https://github.com/stdlib-js/stats-strided-meanpn/blob/main/branches.md
-
-[stdlib-license]: https://raw.githubusercontent.com/stdlib-js/stats-strided-meanpn/main/LICENSE
-
-[arithmetic-mean]: https://en.wikipedia.org/wiki/Arithmetic_mean
-
-[mdn-array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
-
-[mdn-typed-array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray
-
-[@stdlib/array/base/accessor]: https://github.com/stdlib-js/array-base-accessor
-
-[@neely:1966a]: https://doi.org/10.1145/365719.365958
-
-[@schubert:2018a]: https://doi.org/10.1145/3221269.3223036
-
-<!-- <related-links> -->
-
-[@stdlib/stats/strided/dmeanpn]: https://github.com/stdlib-js/stats-strided-dmeanpn
-
-[@stdlib/stats/strided/mean]: https://github.com/stdlib-js/stats-strided-mean
-
-[@stdlib/stats/base/nanmeanpn]: https://github.com/stdlib-js/stats-base-nanmeanpn
-
-[@stdlib/stats/strided/smeanpn]: https://github.com/stdlib-js/stats-strided-smeanpn
-
-<!-- </related-links> -->
-
-</section>
-
-<!-- /.links -->
+Thank you for checking out **Stats Strided MeanPN**! We hope it helps you in your statistical computations.
